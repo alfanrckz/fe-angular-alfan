@@ -58,18 +58,14 @@ export class AuthService extends AbstractApiService<any> {
     return Entity_User.load(async () => {
 
       const params = param ? param : {};
-      const res = await this.post(data, '/login', params);
+      const res = await this.post(data, '/auth/login', params);
       if (res) {
-
-
-        if (res?.data?.is_internal) {
-          this.setLogin(true);
-          this.helper.setStorage('users', res?.data?.user);
-          this.helper.setStorage(environment.tokenName, { token: res?.data?.token, expired: res?.data?.expiresAt });
-        }
+        this.setLogin(true);
+        this.helper.setStorage('users', res?.user);
+        this.helper.setStorage(environment.tokenName, { token: res?.access_token, expired: res?.expires_in });
       }
       logger.log('Logged', res?.data?.user);
-      return res?.data;
+      return res;
     });
   }
 
@@ -91,13 +87,13 @@ export class AuthService extends AbstractApiService<any> {
 
     return Entity_User.load(async () => {
 
-      const res = await this.get('/refresh');
+      const res = await this.get('/users');
       if (res) {
         this.setLogin(true);
-        this.helper.setStorage('users', res?.data?.user);
+        this.helper.setStorage('users', res?.data);
       }
       // logger.log('userdata', res?.data?.user);
-      return res?.data?.user;
+      return res?.data;
     });
   }
 
@@ -123,7 +119,7 @@ export class AuthService extends AbstractApiService<any> {
       this.helper.removeStorage('isGoogleLogin');
 
 
-      window.location.href = '/';
+      window.location.href = '/login';
       window.location.reload();
     }, 2000);
     // await this.logoutNadia();

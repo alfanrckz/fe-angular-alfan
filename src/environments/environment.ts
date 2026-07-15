@@ -1,6 +1,6 @@
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:3000/api',
+  apiUrl : 'https://cms-asfin2026.unictive.net/api',
   envName: 'dev',
   tokenName: 'token',
 };

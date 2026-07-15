@@ -2,42 +2,22 @@
 import { singleStoreFactory } from "@core/config/single-store";
 
 export interface User_m {
-    nip: string;
-    peopleId?: any;
-    peopleName?: string;
-    roleName?: string;
-    position?: string;
-    imageProfile?: string;
-    isCulture?: boolean;
-    isInovation?: boolean
-    branch?: string;
-    role?: Role_m[];
-    roleId?: number;
-    groupId?: number;
-    roleCode?: string;
-    apps: apps[];
+  id?: number;
+  role_id?: number;
+  name?: string;
+  email?: string;
+  phone?: string;
+  qr_code?: string;
+  user_code?: string;
+  ref?: any;
+  business_unit?: any;
+  business_unit_logo?: any;
+  is_spk_registered?: boolean;
+  points?: number;
+  is_claim?: boolean;
+  arrival_date?: string;
 }
 
-export interface apps {
-    appId?: string;
-    show?: boolean;
-    active?: boolean;
-    count_notif?: number;
-}
-
-export interface Role_m {
-    id?: number;
-    people_id?: number;
-    branch?: string;
-    primary_role_id?: string;
-    position_name?: string;
-    role_atasan?: string;
-    group_id?: number;
-    is_active?: string;
-    start_date?: string;
-    end_date?: string;
-    parent_id?: number;
-}
 
 
 

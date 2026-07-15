@@ -1,5 +1,105 @@
-<p>
-  home works!
-</p>
+<div class="min-h-screen bg-gray-50">
 
-<app-widget_game></app-widget_game>
+  <!-- Navbar -->
+  <header class="bg-white border-b border-gray-200 sticky top-0 z-10">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <div class="w-9 h-9 rounded-lg bg-blue-600 text-white flex items-center justify-center font-bold">D</div>
+        <span class="text-lg font-semibold text-gray-800">Dashboard</span>
+      </div>
+
+      <div class="flex items-center gap-4">
+        <div class="flex items-center gap-2">
+          <div class="w-9 h-9 rounded-full bg-blue-600 text-white flex items-center justify-center text-sm font-bold">
+            {{ user().value?.name?.charAt(0)?.toUpperCase() }}
+          </div>
+          <span class="text-sm font-medium text-gray-700 hidden sm:block">{{ user().value?.name }}</span>
+        </div>
+        <button (click)="onLogout()" [disabled]="loggingOut()"
+          class="flex items-center gap-1.5 bg-red-500 text-white text-sm font-medium px-4 py-2 rounded-lg hover:bg-red-600 active:scale-[0.98] transition-all shadow-sm disabled:opacity-60 disabled:cursor-not-allowed">
+          <i class="pi" [ngClass]="loggingOut() ? 'pi-spin pi-spinner' : 'pi-sign-out'"></i>
+          {{ loggingOut() ? 'Logging out...' : 'Logout' }}
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-6 py-8">
+
+    <div
+      class="bg-linear-to-br from-blue-600 to-indigo-700 rounded-2xl p-8 text-white shadow-lg mb-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <div>
+        <h1 class="text-2xl sm:text-3xl font-bold mb-1">Yeaay kamu sudah login! 🎉</h1>
+        <p class="text-blue-100">Selamat datang kembali, <span class="font-semibold">{{ user().value?.name }}</span></p>
+      </div>
+      <div class="text-blue-100 text-sm sm:text-right">
+        {{ today | date:'EEEE, d MMMM y' }}
+      </div>
+    </div>
+
+    <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
+      <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
+        <p class="text-xs font-medium text-gray-400 uppercase mb-1">Nama</p>
+        <p class="text-base font-semibold text-gray-800 truncate">{{ user().value?.name }}</p>
+      </div>
+      <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
+        <p class="text-xs font-medium text-gray-400 uppercase mb-1">Email</p>
+        <p class="text-base font-semibold text-gray-800 truncate">{{ user().value?.email || '-' }}</p>
+      </div>
+      <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
+        <p class="text-xs font-medium text-gray-400 uppercase mb-1">Phone</p>
+        <p class="text-base font-semibold text-gray-800 truncate">{{ user().value?.phone || '-' }}</p>
+      </div>
+      <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-100">
+        <p class="text-xs font-medium text-gray-400 uppercase mb-1">User Code</p>
+        <p class="text-base font-semibold text-gray-800 truncate">{{ user().value?.user_code || '-' }}</p>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="text-lg font-semibold text-gray-800 mb-4">Menu Cepat</h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div
+          class="bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow cursor-pointer">
+          <div class="w-10 h-10 rounded-lg bg-blue-100 text-blue-600 flex items-center justify-center mb-3">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="7" height="7" rx="1" />
+              <rect x="14" y="3" width="7" height="7" rx="1" />
+              <rect x="3" y="14" width="7" height="7" rx="1" />
+              <rect x="14" y="14" width="7" height="7" rx="1" />
+            </svg>
+          </div>
+          <p class="font-medium text-gray-800">Profil Saya</p>
+          <p class="text-sm text-gray-400">Lihat & kelola data diri</p>
+        </div>
+
+        <div
+          class="bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow cursor-pointer">
+          <div class="w-10 h-10 rounded-lg bg-green-100 text-green-600 flex items-center justify-center mb-3">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 11l3 3L22 4" />
+              <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" />
+            </svg>
+          </div>
+          <p class="font-medium text-gray-800">Tugas</p>
+          <p class="text-sm text-gray-400">Pantau progress tugas</p>
+        </div>
+
+        <div
+          class="bg-white rounded-xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow cursor-pointer">
+          <div class="w-10 h-10 rounded-lg bg-amber-100 text-amber-600 flex items-center justify-center mb-3">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+            </svg>
+          </div>
+          <p class="font-medium text-gray-800">Keamanan</p>
+          <p class="text-sm text-gray-400">Kelola akses & keamanan</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
