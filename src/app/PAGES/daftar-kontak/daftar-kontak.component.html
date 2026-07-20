@@ -1,0 +1,71 @@
+<div class="min-h-screen bg-gray-50 p-6">
+    <div class="max-w-2xl mx-auto flex flex-col gap-6">
+
+        <h1 class="text-2xl font-semibold text-gray-800">Daftar Kontak</h1>
+
+        <!-- Form Tambah Kontak -->
+        <form [formGroup]="form" (ngSubmit)="onSubmit()"
+            class="bg-white rounded-xl p-6 shadow-sm border border-gray-100 flex flex-col gap-4">
+            <p class="font-medium text-gray-800">Tambah Kontak Baru</p>
+
+            <div>
+                <label class="block text-sm text-gray-600 mb-1">Nama</label>
+                <input type="text" formControlName="name" placeholder="Nama kontak"
+                    class="w-full border border-gray-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-blue-400" />
+                @if (isInvalid('name')) {
+                    <p class="text-sm text-red-500 mt-1">
+                        @if (form.get('name')?.hasError('required')) { Nama wajib diisi }
+                        @else if (form.get('name')?.hasError('minlength')) { Nama minimal 3 karakter }
+                    </p>
+                }
+            </div>
+
+            <div>
+                <label class="block text-sm text-gray-600 mb-1">Email</label>
+                <input type="text" formControlName="email" placeholder="email@contoh.com"
+                    class="w-full border border-gray-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-blue-400" />
+                @if (isInvalid('email')) {
+                    <p class="text-sm text-red-500 mt-1">
+                        @if (form.get('email')?.hasError('required')) { Email wajib diisi }
+                        @else if (form.get('email')?.hasError('email')) { Format email tidak valid }
+                    </p>
+                }
+            </div>
+
+            <div>
+                <label class="block text-sm text-gray-600 mb-1">No HP</label>
+                <input type="text" formControlName="phone" placeholder="081234567890"
+                    class="w-full border border-gray-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-1 focus:ring-blue-400" />
+                @if (isInvalid('phone')) {
+                    <p class="text-sm text-red-500 mt-1">
+                        @if (form.get('phone')?.hasError('required')) { No HP wajib diisi }
+                        @else if (form.get('phone')?.hasError('pattern')) { No HP harus berupa angka }
+                    </p>
+                }
+            </div>
+
+            <app-button type="submit" variant="primary" [disabled]="form.invalid" [debounceTime]="300"
+                class="self-start">
+                Tambah Kontak
+            </app-button>
+        </form>
+
+        <!-- List Kontak -->
+        <app-contact-list [contacts]="contacts()" (onFavorite)="onFavorite($event)" (onDelete)="onDelete($event)" />
+
+    </div>
+</div>
+
+<!-- Popup Confirmation Delete -->
+@if (deleteTargetId() !== null) {
+    <div class="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
+        <div class="bg-white rounded-xl p-6 shadow-lg w-80 flex flex-col gap-4">
+            <p class="font-medium text-gray-800">Hapus Kontak?</p>
+            <p class="text-sm text-gray-500">Kontak yang dihapus tidak bisa dikembalikan.</p>
+            <div class="flex justify-end gap-2">
+                <app-button variant="secondary" [debounceTime]="300" (onClick)="cancelDelete()">Batal</app-button>
+                <app-button variant="danger" [debounceTime]="300" (onClick)="confirmDelete()">Hapus</app-button>
+            </div>
+        </div>
+    </div>
+}
