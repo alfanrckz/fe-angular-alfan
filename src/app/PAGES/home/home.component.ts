@@ -1,5 +1,6 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 import { AuthService } from '@api/auth/auth.service';
 import { Entity_User } from '@core/models/entities/user.entity';
 
@@ -7,7 +8,7 @@ import { Entity_User } from '@core/models/entities/user.entity';
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
 })
 export class HomeComponent implements OnInit {
 
